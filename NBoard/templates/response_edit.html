@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<!-- Page header with logo and tagline-->
+<header class="py-3 bg-light border-bottom mb-3">
+    <div class="container">
+        <div class="text-center my-3">
+            <h1 class="fw-bolder">Страница создания отклика на объявление!</h1>
+        </div>
+    </div>
+</header>
+
+<h3 align="center"> {{user.username}}, на этой странице вы можете опубликовать отклик на объявление:
+    "{{ad.title}}" </h3>
+<hr>
+
+<form class="form-control" align="left" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" align="left" type="submit" value="Опубликовать"/>
+</form>
+
+{% endblock content %}

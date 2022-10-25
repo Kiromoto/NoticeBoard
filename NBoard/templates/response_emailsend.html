@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% if response.accept %}
+    <h3>Судьбу вашего отклика можно посмотреть под объявлением: <a href="{{ mail_url }}">{{ad.title|truncatechars:32 }}...</a></h3>
+{% elif response.reject %}
+    <h3>Судьбу вашего отклика можно посмотреть под объявлением: <a href="{{ mail_url }}">{{ad.title|truncatechars:32 }}...</a></h3>
+{% else %}
+    <h3>Ваше объявление: <a href="{{ mail_url }}">{{ad.title|truncatechars:32 }}...</a> получило новый отклик: {{response.text|truncatechars:32 }}...</a> </h3>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block content %}
+<h3> Страница подтверждения процедуры удаление объявления </h3>
+<hr>
+
+<form style="font-size: 1.2em; text-align: left;" action="" method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить объявление "{{ object.title }}"? </p>
+
+
+    <input align="left" type="submit" value="Я уверен, что хочу УДАЛИТЬ это объявление!"/>
+</form>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+
+{% endblock content %}

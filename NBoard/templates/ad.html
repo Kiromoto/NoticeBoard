@@ -1,0 +1,74 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ ad }}
+{% endblock title %}
+
+
+{% block content %}
+<!-- Page header with logo and tagline-->
+<header class="py-3 bg-light border-bottom mb-3">
+    <div class="container">
+        <div class="text-center my-3">
+            <h1 class="fw-bolder">Страница объявления!</h1>
+        </div>
+    </div>
+</header>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="small text-muted">{{ ad.dt_create|date:'d F Y' }}</div>
+                <h2 class="card-title h4">{{ ad.title }}</h2>
+                <p class="card-text">{{ ad.text }}</p>
+                <h4 class="card-title h5">Автор объявления: {{ user.username }}</h4>
+                <h4 class="card-title h5">Категория объявления: <a
+                        class="badge bg-secondary text-decoration-none link-light" href="#!">{{ ad.category }}</a></h4>
+                <a class="btn btn-primary" href="{% url 'response_create' ad.pk %}">Оставить отклик</a>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <a href="{{file_url}}"><img class="card-img-top"
+                                                     src="{{file_url}}"
+                                                     alt="..."/></a>
+        </div>
+    </div>
+
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Comment form-->
+                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="{{ vartest }}"></textarea>
+                </form>
+                {% if adresponses %}
+                {% for response in adresponses %}
+                <!-- Single comment-->
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0"><img class="rounded-circle"
+                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."/>
+                    </div>
+                    <div class="ms-3">
+                        <div class="fw-bold">{{ response.user }}</div>
+                        {{ response.text }}
+                        {% if response.reject %}
+                        <a class="badge bg-secondary text-decoration-none link-light"
+                           href="{% url 'my_responses' %}">ОТКЛОНЕНО</a>
+                        {% elif response.accept %}
+                        <a class="badge bg-secondary text-decoration-none link-light"
+                           href="{% url 'my_responses' %}">ПРИНЯТО</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+<p><strong>&nbsp;</strong></p>
+
+{% endblock content %}
