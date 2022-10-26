@@ -7,4 +7,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-NoGOOD.txt
+/NoGOOD.txt
+*/.idea/workspace.xml
+.idea/workspace.xml
