@@ -3,15 +3,16 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.conf import settings
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Ad, Response
 from .forms import AdForm, ResponseForm
 from .filters import AdFilter, ResponseFilter, MyAdFilter
 
+LOGINURL = 'http://127.0.0.1:8000/accounts/login/'
 
-class AdEdit(LoginRequiredMixin, UpdateView):
+
+class AdEdit(PermissionRequiredMixin, UpdateView):
     permission_required = ('board.change_ad')
     form_class = AdForm
     model = Ad
@@ -19,7 +20,7 @@ class AdEdit(LoginRequiredMixin, UpdateView):
     context_object_name = 'adnew'
 
 
-class AdDelete(LoginRequiredMixin, DeleteView):
+class AdDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('board.delete_ad')
     model = Ad
     template_name = 'ad_delete.html'
@@ -46,7 +47,7 @@ class AdList(ListView):
         }
 
 
-class MyAdList(LoginRequiredMixin, ListView):
+class MyAdList(PermissionRequiredMixin, ListView):
     permission_required = ('board.view_ad',
                            'board.delete_ad',
                            'board.change_ad',
@@ -96,14 +97,14 @@ class AdDetail(DetailView):
         return context
 
 
-class ResponseDelete(LoginRequiredMixin, DeleteView):
+class ResponseDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('board.delete_response')
     model = Response
     template_name = 'response_delete.html'
     success_url = reverse_lazy('my_responses')
 
 
-class MyResponsesList(LoginRequiredMixin, ListView):
+class MyResponsesList(PermissionRequiredMixin, ListView):
     permission_required = ('board.view_response',
                            'board.delete_response',
                            'board.change_response',
@@ -128,7 +129,7 @@ class MyResponsesList(LoginRequiredMixin, ListView):
         }
 
 
-@login_required(login_url=settings.LOGINURL)
+@login_required(login_url=LOGINURL)
 def ad_create(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -145,10 +146,10 @@ def ad_create(request):
         return redirect(ad.get_absolute_url())
 
     else:
-        return HttpResponseRedirect(settings.LOGINURL)
+        return HttpResponseRedirect(LOGINURL)
 
 
-@login_required(login_url=settings.LOGINURL)
+@login_required(login_url=LOGINURL)
 def response_create(request, pk):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -173,10 +174,10 @@ def response_create(request, pk):
         return redirect(ad_response.get_absolute_url())
 
     else:
-        return HttpResponseRedirect(settings.LOGINURL)
+        return HttpResponseRedirect(LOGINURL)
 
 
-@login_required(login_url=settings.LOGINURL)
+@login_required(login_url=LOGINURL)
 def accept_response(request, pk):
     response = Response.objects.get(pk=pk)
     response.accept = True
@@ -184,7 +185,7 @@ def accept_response(request, pk):
     return redirect('my_responses')
 
 
-@login_required(login_url=settings.LOGINURL)
+@login_required(login_url=LOGINURL)
 def reject_response(request, pk):
     response = Response.objects.get(pk=pk)
     response.reject = True

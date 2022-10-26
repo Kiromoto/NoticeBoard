@@ -22,19 +22,17 @@
                 <div class="small text-muted">{{ ad.dt_create|date:'d F Y' }}</div>
                 <h2 class="card-title h4">{{ ad.title }}</h2>
                 <p class="card-text">{{ ad.text }}</p>
-                <h4 class="card-title h5">Автор объявления: {{ ad.author }}</h4>
+                <h4 class="card-title h5">Автор объявления: {{ user.username }}</h4>
                 <h4 class="card-title h5">Категория объявления: <a
                         class="badge bg-secondary text-decoration-none link-light" href="#!">{{ ad.category }}</a></h4>
                 <a class="btn btn-primary" href="{% url 'response_create' ad.pk %}">Оставить отклик</a>
             </div>
         </div>
-        {% if ad.uploads %}
-            <div class="card mb-4">
-                <a href="{{file_url}}"><img class="card-img-top"
+        <div class="card mb-4">
+            <a href="{{file_url}}"><img class="card-img-top"
                                                      src="{{file_url}}"
                                                      alt="..."/></a>
-            </div>
-        {% endif %}
+        </div>
     </div>
 
     <section class="mb-5">
