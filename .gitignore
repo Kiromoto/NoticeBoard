@@ -1,6 +1,6 @@
 __pycache__/
 **/__pycache__
-.env
+orig.env
 .venv
 env/
 venv/
@@ -10,3 +10,4 @@ venv.bak/
 /NoGOOD.txt
 */.idea/workspace.xml
 .idea/workspace.xml
+.env
