@@ -31,6 +31,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
@@ -73,6 +76,8 @@ ROOT_URLCONF = 'NBoard.urls'
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/board/'
 LOGIN_REDIRECT_URL = '/board/'
+
+LOGINURL = 'http://127.0.0.1:8000/accounts/login/'
 
 TEMPLATES = [
     {
